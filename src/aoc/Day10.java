@@ -37,13 +37,9 @@ public class Day10 {
             }
         }
 
-        System.out.println(min_x + " - "+max_x);
-        System.out.println(min_y + " - "+max_y);
-
         int time = 0;
         Scanner scanner = new Scanner(System.in);
         boolean cont = true;
-//        while(scanner.next().equals("y")) {
         while(cont) {
             System.out.println(time);
             cur_min_x = 0;
@@ -51,27 +47,10 @@ public class Day10 {
             cur_max_x = 0;
             cur_max_y = 0;
 
-//            System.out.println("Time = "+time);
             TreeMap<Integer, TreeMap<Integer, Character>> grid = new TreeMap<>();
-//            for(int y = min_y; y <= max_y; y++) {
-//                System.out.println(y);
-//                TreeMap<Integer, Character> row = new TreeMap<>();
-//                for(int x = min_x; x <= max_x; x++) {
-//                    row.put(x, '.');
-//                }
-//                grid.put(y, row);
-//            }
-//            System.out.println("Grid initiated");
-//            char[][] grid = new char[(max_y-min_y+1)][(max_x-min_x+1)];
-//            for(char[] x : grid) {
-//                Arrays.fill(x, '.');
-//            }
             for(Point p : points) {
-//            Point p = points.get(0);
                 int[] pos = p.move(time);
                 TreeMap<Integer, Character> row = grid.getOrDefault(pos[1], new TreeMap<>());
-//                System.out.println(Arrays.toString(pos));
-//                System.out.println(row);
                 row.put(pos[0], '#');
                 grid.put(pos[1], row);
 
@@ -79,37 +58,20 @@ public class Day10 {
                 cur_max_x = pos[0] > cur_max_x ? pos[0] : cur_max_x;
                 cur_min_y = pos[1] < cur_min_y ? pos[1] : cur_min_y;
                 cur_max_y = pos[1] > cur_max_y ? pos[1] : cur_max_y;
-
-//                printGrid(grid);
-
-//                grid[pos[1]-min_y][pos[0]-min_x] = '#';
             }
 
-            if(cur_max_x - cur_min_x < 300 && cur_max_y - cur_min_y < 300) {
+            if(cur_max_x - cur_min_x < 250 && cur_max_y - cur_min_y < 250) {
                 printGrid(grid);
                 cont = false;
             }
-//            for(String[] x : grid) {
-//                System.out.println(Arrays.toString(x));
-//            }
-//            System.out.println(cur_min_x + " - "+cur_max_x + " -- "+ (cur_max_x - cur_min_x));
-//            System.out.println(cur_min_y + " - "+cur_max_y + " -- " + (cur_max_y - cur_min_y));
-//            cont = false;
             if(!cont) {
-                System.out.println("Continue?");
+                System.out.println("Continue? (y/n)");
                 if(scanner.next().equals("y")) {
                     cont = true;
                 }
             }
             time++;
         }
-
-//        for(Point p:points) {
-//            System.out.println(p);
-//        }
-        System.out.println(min_x + " - "+max_x);
-        System.out.println(min_y + " - "+max_y);
-
     }
 
     public static void printGrid(TreeMap<Integer, TreeMap<Integer, Character>> grid) {
@@ -117,9 +79,6 @@ public class Day10 {
             for(int x = cur_min_x; x <= cur_max_x; x++) {
                 System.out.print(y.getOrDefault(x, '.'));
             }
-//            for(Character c : x.values()) {
-//                System.out.print(c);
-//            }
             System.out.println();
         }
     }
